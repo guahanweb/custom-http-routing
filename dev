@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+export SCRIPTS_DIRECTORY="${DIR}/scripts"
+
+[[ -f ~/.bashrc ]] && source ~/.bashrc
+[[ -f ${SCRIPTS_DIRECTORY}/settings.sh ]] && source ${SCRIPTS_DIRECTORY}/settings.sh
+[[ -f ${SCRIPTS_DIRECTORY}/utils.sh ]] && source ${SCRIPTS_DIRECTORY}/utils.sh
+[[ -f ${SCRIPTS_DIRECTORY}/subcommands.sh ]] && source ${SCRIPTS_DIRECTORY}/subcommands.sh
+
+ProgName=$(basename $0)
+subcommand=$1
+
+case $subcommand in
+    nginx )
+        shift
+        cd ${SCRIPTS_DIRECTORY}/nginx
+        docker-compose up
+        ;;
+esac

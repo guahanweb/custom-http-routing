@@ -1,0 +1,27 @@
+version: "3"
+services:
+  nginx:
+    depends_on:
+      - origin
+    image: nginx:latest
+    container_name: custom-http-routing
+    volumes:
+      - ./configs/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./configs/sites-enabled.d/:/etc/nginx/sites-enabled.d/:ro
+    ports:
+      - 3080:80
+
+  origin:
+    build:
+      context: ../../app
+      dockerfile: Dockerfile
+      target: base
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    volumes:
+      - ../../app/src:/home/node/app/src
+    environment:
+      PORT: 3000
+    command: npm run dev
