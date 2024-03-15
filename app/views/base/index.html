@@ -1,0 +1,6 @@
+{% extends brandTemplate %}
+
+{% block main %}
+This is my shared content, but I'm being rendered on behalf of <span>{{ name }}</span>!<br>
+(<a href="{{ baseUri }}/test">test link</a>)
+{% endblock %}
